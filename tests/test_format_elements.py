@@ -16,4 +16,11 @@ def test_string_build():
     assert String("ts", {}).build("or") == '<ts>or</ts>'
 
 def test_string_parse():
-    assert String("test", {}).parse('<ts>or</ts>') == "or"
+    assert String("ts", {}).parse('<ts>or</ts>') == "or"
+
+def test_empty_string_build():
+    assert String("brooo", {}).build("") in ('<brooo></brooo>', "<brooo />")
+
+def test_empty_string_parse():
+    assert String("brooo", {}).parse('<brooo></brooo>') == ""
+    assert String("brooo", {}).parse('<brooo />') == ""
