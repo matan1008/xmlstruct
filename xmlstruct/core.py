@@ -10,7 +10,7 @@ class Struct(XmlElement):
     The elements are parsed and built and the order they are defined
     """
     def  __init__(self, tag, attrib, *children):
-        XmlElement.__init__(tag, attrib)
+        XmlElement.__init__(self, tag, attrib)
         self.children = children
 
     def _build(self, obj):
@@ -35,7 +35,7 @@ class FormatElement(XmlElement):
     __metaclass__ = ABCMeta
 
     def  __init__(self, tag, attrib):
-        XmlElement.__init__(tag, attrib)
+        XmlElement.__init__(self, tag, attrib)
 
     @abstractmethod
     def parse_func(self, text):
