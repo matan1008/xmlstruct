@@ -24,3 +24,9 @@ def test_empty_string_build():
 def test_empty_string_parse():
     assert String("brooo", {}).parse('<brooo></brooo>') == ""
     assert String("brooo", {}).parse('<brooo />') == ""
+
+def test_hex_build():
+    assert Hex("test", {}).build(255) == '<test>FF</test>'
+
+def test_hex_parse():
+    assert Hex("test", {}).parse('<test>FF</test>') == 255
