@@ -74,7 +74,7 @@ class String(FormatElement):
         return value
 
     def parse_func(self, text):
-        return text
+        return text if text is not None else ""
 
 
 class Int(FormatElement):
