@@ -1,32 +1,42 @@
-from xmlstruct import Int, Float, String, Hex
+from xmlstruct import Int, Float, String, Hex, Container
 
 def test_int_build():
-    assert Int("test", {"attr":"check"}).build(6) == '<test attr="check">6</test>'
+    obj = Container(test=6)
+    assert Int("test", {"attr":"check"}).build(obj) == '<test attr="check">6</test>'
 
 def test_int_parse():
-    assert Int("test", {"attr":"check"}).parse('<test attr="check">6</test>') == 6
+    obj = Container(test=6)
+    assert Int("test", {"attr":"check"}).parse('<test attr="check">6</test>') == obj
 
 def test_float_build():
-    assert Float("test", {}).build(4.2) == '<test>4.2</test>'
+    obj = Container(test=4.2)
+    assert Float("test", {}).build(obj) == '<test>4.2</test>'
 
 def test_float_parse():
-    assert Float("test", {}).parse('<test>4.2</test>') == 4.2
+    obj = Container(test=4.2)
+    assert Float("test", {}).parse('<test>4.2</test>') == obj
 
 def test_string_build():
-    assert String("ts", {}).build("or") == '<ts>or</ts>'
+    obj = Container(ts="or")
+    assert String("ts", {}).build(obj) == '<ts>or</ts>'
 
 def test_string_parse():
-    assert String("ts", {}).parse('<ts>or</ts>') == "or"
+    obj = Container(ts="or")
+    assert String("ts", {}).parse('<ts>or</ts>') == obj
 
 def test_empty_string_build():
-    assert String("brooo", {}).build("") in ('<brooo></brooo>', "<brooo />")
+    obj = Container(brooo="")
+    assert String("brooo", {}).build(obj) in ('<brooo></brooo>', "<brooo />")
 
 def test_empty_string_parse():
-    assert String("brooo", {}).parse('<brooo></brooo>') == ""
-    assert String("brooo", {}).parse('<brooo />') == ""
+    obj = Container(brooo="")
+    assert String("brooo", {}).parse('<brooo></brooo>') == obj
+    assert String("brooo", {}).parse('<brooo />') == obj
 
 def test_hex_build():
-    assert Hex("test", {}).build(255) == '<test>FF</test>'
+    obj = Container(test=255)
+    assert Hex("test", {}).build(obj) == '<test>FF</test>'
 
 def test_hex_parse():
-    assert Hex("test", {}).parse('<test>FF</test>') == 255
+    obj = Container(test=255)
+    assert Hex("test", {}).parse('<test>FF</test>') == obj

@@ -16,13 +16,15 @@ class Struct(XmlElement):
     def _build(self, obj):
         element = ElementTree.Element(self.tag, self.attrib)
         for child in self.children:
-            element.append(child._build(obj[child.tag]))
+            sub_obj = Container({child.tag:obj[self.tag][child.tag]})
+            element.append(child._build(sub_obj))
         return element
 
     def _parse(self, element):
         obj = Container()
+        obj[self.tag] = Container()
         for child, subelement in zip(self.children, element):
-            obj[subelement.tag] = subelement._parse(child)
+            obj[self.tag].update(subelement._parse(child))
         return obj
 
 
@@ -57,11 +59,13 @@ class FormatElement(XmlElement):
 
     def _build(self, obj):
         element = ElementTree.Element(self.tag, self.attrib)
-        element.text = self.build_func(obj)
+        element.text = self.build_func(obj[self.tag])
         return element
 
     def _parse(self, element):
-        return self.parse_func(element.text)
+        obj = Container()
+        obj[self.tag] = self.parse_func(element.text)
+        return obj
 
 
 class String(FormatElement):
