@@ -24,7 +24,7 @@ class Struct(XmlElement):
         obj = Container()
         obj[self.tag] = Container()
         for child, subelement in zip(self.children, element):
-            obj[self.tag].update(subelement._parse(child))
+            obj[self.tag].update(child._parse(subelement))
         return obj
 
 
