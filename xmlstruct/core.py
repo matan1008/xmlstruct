@@ -1,7 +1,7 @@
 from xml.etree import ElementTree
 from abc import ABCMeta, abstractmethod
-from xml_element import XmlElement
-from container import Container
+from xmlstruct.xml_element import XmlElement
+from xmlstruct.container import Container
 
 class Struct(XmlElement):
     """
