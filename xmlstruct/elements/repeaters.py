@@ -32,7 +32,14 @@ class Range(XmlElement):
         obj[self.tag] = [self.child._parse(subelement) for subelement in list(element)]
         return obj
 
+
 class Array(Range):
     """ Range of "count" size """
     def __init__(self, tag, attrib, count, child):
         Range.__init__(self, tag, attrib, count, count, child)
+
+
+class GreedyRange(Range):
+    """ Range of any size """
+    def __init__(self, tag, attrib, child):
+        Range.__init__(self, tag, attrib, 0, sys.maxsize, child)
