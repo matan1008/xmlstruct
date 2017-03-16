@@ -1,6 +1,7 @@
 from abc import abstractmethod, ABCMeta
 from xml.etree import ElementTree
 
+
 class XmlElement(object):
     r"""
     The most generic object possible.

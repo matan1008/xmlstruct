@@ -1,11 +1,13 @@
 from collections import OrderedDict
 
+
 class Container(OrderedDict):
     """
     Generic data holder.
 
     The Container may be used for both building and parsing
     """
+
     def __init__(self, *args, **kwds):
         OrderedDict.__init__(self, *args, **kwds)
         # OrderedDict uses __setattr__ in his __init__, overriding it before

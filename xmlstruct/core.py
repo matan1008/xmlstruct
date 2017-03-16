@@ -36,7 +36,7 @@ class FormatElement(XmlElement):
     """
     __metaclass__ = ABCMeta
 
-    def  __init__(self, tag, attrib):
+    def __init__(self, tag, attrib):
         XmlElement.__init__(self, tag, attrib)
 
     @abstractmethod

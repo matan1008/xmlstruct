@@ -1,6 +1,6 @@
-
 class RangeError(Exception):
     "Error for any range issue"
+
     def __init__(self, min_size, max_size, real_size):
         Exception.__init__(self)
         self.min_size = min_size
