@@ -19,7 +19,9 @@ class Range(XmlElement):
         self.child = child
 
     def check_size(self, size):
-        """ Make sure all size is between min and max"""
+        """ Make sure all size is between min and max
+        :param size: int
+        """
         if not 0 <= self.minsize <= size <= self.maxsize <= sys.maxsize:
             raise RangeError(self.minsize, self.maxsize, size)
 

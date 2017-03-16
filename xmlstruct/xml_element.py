@@ -20,7 +20,7 @@ class XmlElement(object):
         """
         Parse data according the _parse function
 
-        This function expects a string as a data parameter
+        :param data: raw xml string
         """
         element = ElementTree.fromstring(data)
         return self._parse(element)
@@ -29,8 +29,8 @@ class XmlElement(object):
         """
         Build xml according the _build function
 
-        This function expects any object that has the needed attributes
-        for the building process (preferebly Container).
+        :param obj: any object that has the needed attributes
+            for the building process (preferably Container).
         """
         element = self._build(obj)
         return ElementTree.tostring(element)
@@ -38,7 +38,7 @@ class XmlElement(object):
     @abstractmethod
     def _build(self, obj):
         """
-        To be overrided
+        To be overridden
 
         The function returns a xml.etree.ElementTree.Element object
         """
@@ -47,7 +47,7 @@ class XmlElement(object):
     @abstractmethod
     def _parse(self, element):
         """
-        To be overrided
+        To be overridden
 
         The function receives a xml.etree.ElementTree.Element object as element
         """

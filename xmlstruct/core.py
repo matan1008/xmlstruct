@@ -3,20 +3,22 @@ from abc import ABCMeta, abstractmethod
 from xmlstruct.xml_element import XmlElement
 from xmlstruct.container import Container
 
+
 class Struct(XmlElement):
     """
     A sequence of xml elements.
 
     The elements are parsed and built and the order they are defined
     """
-    def  __init__(self, tag, attrib, *children):
+
+    def __init__(self, tag, attrib, *children):
         XmlElement.__init__(self, tag, attrib)
         self.children = children
 
     def _build(self, obj):
         element = ElementTree.Element(self.tag, self.attrib)
         for child in self.children:
-            sub_obj = Container({child.tag:obj[self.tag][child.tag]})
+            sub_obj = Container({child.tag: obj[self.tag][child.tag]})
             element.append(child._build(sub_obj))
         return element
 
@@ -45,6 +47,7 @@ class FormatElement(XmlElement):
         This function parses element text
 
         It return any wanted value
+        :param text: string
         """
         raise NotImplementedError()
 
@@ -54,6 +57,7 @@ class FormatElement(XmlElement):
         This function "builds" a value
 
         The function gets the value and returns string
+        :param value: value to format
         """
         raise NotImplementedError()
 
@@ -74,6 +78,7 @@ class String(FormatElement):
 
     Sounds unnecessary, but makes the project cleaner and clearer
     """
+
     def build_func(self, value):
         return value
 
@@ -85,6 +90,7 @@ class Int(FormatElement):
     """
     A FormatElement that for int
     """
+
     def build_func(self, value):
         return str(value)
 
@@ -96,6 +102,7 @@ class Float(FormatElement):
     """
     A FormatElement that for float
     """
+
     def build_func(self, value):
         return str(value)
 
@@ -107,6 +114,7 @@ class Hex(FormatElement):
     """
     A FormatElement that for hexadecimal, receives int as value
     """
+
     def build_func(self, value):
         return "%X" % value
 
