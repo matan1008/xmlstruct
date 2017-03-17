@@ -1,4 +1,5 @@
-from xmlstruct.core import Struct, Int, Float, Hex, String, FormatElement
+from xmlstruct.core import Struct
+from xmlstruct.elements.formatters import Int, Float, Hex, String, FormatElement
 from xmlstruct.container import Container
 from xmlstruct.elements.repeaters import Range, GreedyRange, Array
 
