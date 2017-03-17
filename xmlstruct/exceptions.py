@@ -2,6 +2,7 @@ class XmlstructError(Exception):
     """General xmlstruct error"""
     pass
 
+
 class RangeError(XmlstructError):
     """Error for any range issue"""
 
@@ -13,6 +14,7 @@ class RangeError(XmlstructError):
 
     def __str__(self):
         print ": expected from %d to %d elements, found %d" % (self.min_size, self.max_size, self.real_size)
+
 
 class TagMismatchError(XmlstructError):
     """ Eror for when subobject or subelement doen't match child"""
