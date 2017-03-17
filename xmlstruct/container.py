@@ -37,7 +37,7 @@ class OrderedPairContainer(object):
         return len(self.keys)
 
     def __getitem__(self, key):
-        return (self.keys[key], self.values[key])
+        return self.keys[key], self.values[key]
 
     def __setitem__(self, key, value):
         if isinstance(value, dict):
