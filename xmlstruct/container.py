@@ -51,3 +51,6 @@ class OrderedPairContainer(object):
 
     def __iter__(self):
         return zip(self.keys, self.values).__iter__()
+
+    def __eq__(self, other):
+        return self.keys == other.keys and self.values == other.values
