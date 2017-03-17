@@ -13,7 +13,7 @@ class RangeError(XmlstructError):
         self.real_size = real_size
 
     def __str__(self):
-        print ": expected from %d to %d elements, found %d" % (self.min_size, self.max_size, self.real_size)
+        return ": expected from %d to %d elements, found %d" % (self.min_size, self.max_size, self.real_size)
 
 
 class TagMismatchError(XmlstructError):
@@ -25,4 +25,4 @@ class TagMismatchError(XmlstructError):
         self.real_tag = real_tag
 
     def __str__(self):
-        print ": tag %s doesn't match expected %s" % (self.real_tag, self.struct_tag)
+        return ": tag %s doesn't match expected %s" % (self.real_tag, self.struct_tag)
