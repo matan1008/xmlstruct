@@ -1,6 +1,6 @@
 from xml.etree import ElementTree
 from xmlstruct.xml_element import XmlElement
-from xmlstruct.container import Container
+from xmlstruct.container import Container, OrderedPairContainer
 from xmlstruct.exceptions import TagMismatchError
 
 
@@ -54,9 +54,10 @@ class OrderedStruct(XmlElement):
 
     def _parse(self, element):
         obj = Container()
-        obj[self.tag] = Container()
+        parsed_elements = []
         for child, subelement in zip(self.children, list(element)):
             if child.tag != subelement.tag:
                 raise TagMismatchError(child.tag, subelement.tag)
-            obj[self.tag].update(child._parse(subelement))
+            parsed_elements.append((child.tag, child._parse(subelement)))
+        obj[self.tag] = OrderedPairContainer(*parsed_elements)
         return obj
