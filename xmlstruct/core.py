@@ -47,7 +47,7 @@ class OrderedStruct(XmlElement):
         element = ElementTree.Element(self.tag, self.attrib)
         for index, child in enumerate(self.children):
             if child.tag != obj[self.tag][index][0]:
-                raise TagMismatchError()
+                raise TagMismatchError(child.tag, obj[self.tag][index][0])
             sub_obj = Container({child.tag: obj[self.tag][index][1]})
             element.append(child._build(sub_obj))
         return element
@@ -57,6 +57,6 @@ class OrderedStruct(XmlElement):
         obj[self.tag] = Container()
         for child, subelement in zip(self.children, list(element)):
             if child.tag != subelement.tag:
-                raise TagMismatchError()
+                raise TagMismatchError(child.tag, subelement.tag)
             obj[self.tag].update(child._parse(subelement))
         return obj
