@@ -7,7 +7,7 @@ class RangeError(XmlstructError):
     """Error for any range issue"""
 
     def __init__(self, min_size, max_size, real_size):
-        Exception.__init__(self)
+        XmlstructError.__init__(self)
         self.min_size = min_size
         self.max_size = max_size
         self.real_size = real_size
@@ -18,4 +18,11 @@ class RangeError(XmlstructError):
 
 class TagMismatchError(XmlstructError):
     """ Eror for when subobject or subelement doen't match child"""
-    pass
+
+    def __init__(self, struct_tag, real_tag):
+        XmlstructError.__init__(self)
+        self.struct_tag = struct_tag
+        self.real_tag = real_tag
+
+    def __str__(self):
+        print ": tag %s doesn't match expected %s" % (self.real_tag, self.struct_tag)
