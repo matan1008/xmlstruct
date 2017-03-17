@@ -1,7 +1,6 @@
 import sys
 from xml.etree import ElementTree
 from xmlstruct.xml_element import XmlElement
-from xmlstruct.container import Container
 from xmlstruct.exceptions import RangeError
 
 
@@ -26,20 +25,15 @@ class Range(XmlElement):
             raise RangeError(self.minsize, self.maxsize, size)
 
     def _build(self, obj):
-        self.check_size(len(obj[self.tag]))
+        self.check_size(len(obj))
         element = ElementTree.Element(self.tag, self.attrib)
-        for child_index in xrange(len(obj[self.tag])):
-            sub_obj = Container({
-                self.child.tag: obj[self.tag][child_index][self.child.tag]
-            })
-            element.append(self.child._build(sub_obj))
+        for child_index in xrange(len(obj)):
+            element.append(self.child._build(obj[child_index]))
         return element
 
     def _parse(self, element):
         self.check_size(len(list(element)))
-        obj = Container()
-        obj[self.tag] = map(self.child._parse, list(element))
-        return obj
+        return map(self.child._parse, list(element))
 
 
 class Array(Range):

@@ -8,7 +8,7 @@ def test_struct_build():
             Int("testint", {}),
             String("teststring", {})
     )
-    obj = Container(test={"testint": 3, "teststring": "night"})
+    obj = Container({"testint": 3, "teststring": "night"})
     assert xml_struct.build(obj) == '<test attr="attrv"><testint>3</testint><teststring>night</teststring></test>'
 
 
@@ -19,7 +19,7 @@ def test_struct_parse():
             Int("testint", {}),
             String("teststring", {})
     )
-    obj = Container(test={"testint": 3, "teststring": "night"})
+    obj = Container({"testint": 3, "teststring": "night"})
     assert xml_struct.parse('<test attr="attrv"><testint>3</testint><teststring>night</teststring></test>') == obj
 
 
@@ -34,7 +34,7 @@ def test_recursive_struct_build():
                     String("string", {})
             )
     )
-    obj = Container(testa={"testb": {"testint": 3, "string": "night"}})
+    obj = Container(testb={"testint": 3, "string": "night"})
     assert xml_struct.build(obj) == '<testa><testb><testint>3</testint><string>night</string></testb></testa>'
 
 
@@ -49,7 +49,7 @@ def test_recursive_struct_parse():
                     String("string", {})
             )
     )
-    obj = Container(testa={"testb": {"testint": 3, "string": "night"}})
+    obj = Container(testb={"testint": 3, "string": "night"})
     assert xml_struct.parse('<testa><testb><testint>3</testint><string>night</string></testb></testa>') == obj
 
 
@@ -60,7 +60,7 @@ def test_same_tags_subelements_build():
             String("string", {}),
             String("string", {})
     )
-    obj = Container(test=OrderedPairContainer(("string", "3"), ("string", "4")))
+    obj = OrderedPairContainer(("string", "3"), ("string", "4"))
     assert xml_struct.build(obj) == '<test><string>3</string><string>4</string></test>'
 
 
@@ -71,5 +71,5 @@ def test_same_tags_subelements_parse():
             String("string", {}),
             String("string", {})
     )
-    obj = Container(test=OrderedPairContainer(("string", Container(string="3")), ("string", Container(string="4"))))
+    obj = OrderedPairContainer(("string", "3"), ("string", "4"))
     assert xml_struct.parse('<test><string>3</string><string>4</string></test>') == obj

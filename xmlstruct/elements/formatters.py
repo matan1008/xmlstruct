@@ -1,7 +1,6 @@
 from xml.etree import ElementTree
 from abc import ABCMeta, abstractmethod
 from xmlstruct.xml_element import XmlElement
-from xmlstruct.container import Container
 
 
 class FormatElement(XmlElement):
@@ -37,13 +36,11 @@ class FormatElement(XmlElement):
 
     def _build(self, obj):
         element = ElementTree.Element(self.tag, self.attrib)
-        element.text = self.build_func(obj[self.tag])
+        element.text = self.build_func(obj)
         return element
 
     def _parse(self, element):
-        obj = Container()
-        obj[self.tag] = self.parse_func(element.text)
-        return obj
+        return self.parse_func(element.text)
 
 
 class String(FormatElement):
