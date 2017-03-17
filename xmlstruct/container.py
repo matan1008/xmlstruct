@@ -4,8 +4,8 @@ from collections import OrderedDict
 class Container(OrderedDict):
     """
     Generic data holder.
-
-    The Container may be used for both building and parsing
+    Used for functional relations, meaning that for each key there is one value.
+    The Container may be used for both building and parsing.
     """
 
     def __init__(self, *args, **kwds):
@@ -20,3 +20,34 @@ class Container(OrderedDict):
             return self[name]
         except KeyError:
             raise AttributeError(name)
+
+
+class OrderedPairContainer(object):
+    """
+    Data holder for ordered structs that might have more than one
+    value with the same key, when the order matters.
+    Used for ordered pairs.
+    The Container may be used for both building and parsing.
+    """
+
+    def __init__(self, *args):
+        self.keys, self.values = zip(*args)
+
+    def __len__(self):
+        return len(self.keys)
+
+    def __getitem__(self, key):
+        return (self.keys[key], self.values[key])
+
+    def __setitem__(self, key, value):
+        if isinstance(value, dict):
+            self.keys[key], self.values[key] = value.items()[0]
+        else:
+            self.keys[key], self.values[key] = value
+
+    def __delitem__(self, key):
+        del self.keys[key]
+        del self.values[key]
+
+    def __iter__(self):
+        return zip(self.keys, self.values).__iter__()
