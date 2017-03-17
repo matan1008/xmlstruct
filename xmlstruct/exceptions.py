@@ -17,7 +17,7 @@ class RangeError(XmlstructError):
 
 
 class TagMismatchError(XmlstructError):
-    """ Eror for when subobject or subelement doen't match child"""
+    """ Error for when subobject or subelement doesn't match child"""
 
     def __init__(self, struct_tag, real_tag):
         XmlstructError.__init__(self)
