@@ -1,4 +1,4 @@
-from xmlstruct import Struct, Container, Int, String
+from xmlstruct import Struct, Container, Int, String, OrderedStruct, OrderedPairContainer
 
 
 def test_struct_build():
@@ -51,3 +51,25 @@ def test_recursive_struct_parse():
     )
     obj = Container(testa={"testb": {"testint": 3, "string": "night"}})
     assert xml_struct.parse('<testa><testb><testint>3</testint><string>night</string></testb></testa>') == obj
+
+
+def test_same_tags_subelements_build():
+    xml_struct = OrderedStruct(
+            "test",
+            {},
+            String("string", {}),
+            String("string", {})
+    )
+    obj = Container(test=OrderedPairContainer(("string", "3"), ("string", "4")))
+    assert xml_struct.build(obj) == '<test><string>3</string><string>4</string></test>'
+
+
+def test_same_tags_subelements_parse():
+    xml_struct = OrderedStruct(
+            "test",
+            {},
+            String("string", {}),
+            String("string", {})
+    )
+    obj = Container(test=OrderedPairContainer(("string", Container(string="3")), ("string", Container(string="4"))))
+    assert xml_struct.parse('<test><string>3</string><string>4</string></test>') == obj
