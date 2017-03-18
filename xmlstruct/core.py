@@ -17,6 +17,8 @@ class Struct(XmlElement):
         self.children = children
 
     def _build(self, obj):
+        if not isinstance(obj, Container):
+            obj = Container(obj)
         element = ElementTree.Element(self.tag, obj.xml_attrib)
         for child in self.children:
             element.append(child._build(obj[child.tag]))
@@ -42,6 +44,8 @@ class OrderedStruct(XmlElement):
         self.children = children
 
     def _build(self, obj):
+        if not isinstance(obj, OrderedPairContainer):
+            obj = OrderedPairContainer(obj)
         element = ElementTree.Element(self.tag, obj.xml_attrib)
         for index, child in enumerate(self.children):
             if child.tag != obj[index][0]:
