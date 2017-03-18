@@ -6,15 +6,14 @@ class XmlElement(object):
     r"""
     The most generic object possible.
 
-    The object represents a xml element - it has a tag and attributes
+    The object represents a xml element - it has a tag
 
     This object is an abstract object and must be inherited almost everywhere
     """
     __metaclass__ = ABCMeta
 
-    def __init__(self, tag, attrib):
+    def __init__(self, tag):
         self.tag = tag
-        self.attrib = attrib
 
     def parse(self, data):
         """
