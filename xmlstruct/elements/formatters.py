@@ -1,6 +1,7 @@
 from xml.etree import ElementTree
 from abc import ABCMeta, abstractmethod
 from xmlstruct.xml_element import XmlElement
+from xmlstruct.container import ValueContainer
 
 
 class FormatElement(XmlElement):
@@ -11,8 +12,8 @@ class FormatElement(XmlElement):
     """
     __metaclass__ = ABCMeta
 
-    def __init__(self, tag, attrib):
-        XmlElement.__init__(self, tag, attrib)
+    def __init__(self, tag):
+        XmlElement.__init__(self, tag)
 
     @abstractmethod
     def parse_func(self, text):
@@ -35,12 +36,17 @@ class FormatElement(XmlElement):
         raise NotImplementedError()
 
     def _build(self, obj):
-        element = ElementTree.Element(self.tag, self.attrib)
-        element.text = self.build_func(obj)
+        if isinstance(obj, ValueContainer):
+            element = ElementTree.Element(self.tag, obj.xml_attrib)
+            element.text = self.build_func(obj.value)
+        else:
+            element = ElementTree.Element(self.tag, {})
+            element.text = self.build_func(obj)
         return element
 
     def _parse(self, element):
-        return self.parse_func(element.text)
+        value = self.parse_func(element.text)
+        return ValueContainer(value, xml_attrib=element.attrib)
 
 
 class String(FormatElement):
