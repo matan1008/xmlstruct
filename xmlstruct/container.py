@@ -9,6 +9,7 @@ class Container(OrderedDict):
     """
 
     def __init__(self, *args, **kwds):
+        self.xml_attrib = kwds.pop("xml_attrib", {})
         OrderedDict.__init__(self, *args, **kwds)
         # OrderedDict uses __setattr__ in his __init__, overriding it before
         # here calls to _OrderedDict___root, thus raising AttributeError
@@ -30,7 +31,8 @@ class OrderedPairContainer(object):
     The Container may be used for both building and parsing.
     """
 
-    def __init__(self, *args):
+    def __init__(self, *args, **kwds):
+        self.xml_attrib = kwds.pop("xml_attrib", {})
         self.keys, self.values = zip(*args)
 
     def __len__(self):
