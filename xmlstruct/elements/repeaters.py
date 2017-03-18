@@ -26,6 +26,8 @@ class Range(XmlElement):
             raise RangeError(self.minsize, self.maxsize, size)
 
     def _build(self, obj):
+        if not isinstance(obj, ListContainer):
+            obj = ListContainer(*obj)
         self.check_size(len(obj))
         element = ElementTree.Element(self.tag, obj.xml_attrib)
         for child_index in xrange(len(obj)):
@@ -41,12 +43,12 @@ class Range(XmlElement):
 class Array(Range):
     """ Range of "count" size """
 
-    def __init__(self, tag, attrib, count, child):
-        Range.__init__(self, tag, attrib, count, count, child)
+    def __init__(self, tag, count, child):
+        Range.__init__(self, tag, count, count, child)
 
 
 class GreedyRange(Range):
     """ Range of any size """
 
-    def __init__(self, tag, attrib, child):
-        Range.__init__(self, tag, attrib, 0, sys.maxsize, child)
+    def __init__(self, tag, child):
+        Range.__init__(self, tag, 0, sys.maxsize, child)
