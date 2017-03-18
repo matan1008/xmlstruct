@@ -73,3 +73,6 @@ class ValueContainer(object):
     def __init__(self, value, **kwds):
         self.xml_attrib = kwds.pop("xml_attrib", {})
         self.value = value
+
+    def __eq__(self, other):
+        return self.value == other.value and self.xml_attrib == other.xml_attrib
