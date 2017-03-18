@@ -56,3 +56,14 @@ class OrderedPairContainer(object):
 
     def __eq__(self, other):
         return self.keys == other.keys and self.values == other.values
+
+
+class ListContainer(list):
+    """
+    Generic data holder.
+    Used for lists
+    """
+
+    def __init__(self, *args, **kwds):
+        self.xml_attrib = kwds.pop("xml_attrib", {})
+        list.__init__(args)
