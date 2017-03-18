@@ -2,6 +2,7 @@ import sys
 from xml.etree import ElementTree
 from xmlstruct.xml_element import XmlElement
 from xmlstruct.exceptions import RangeError
+from xmlstruct.container import ListContainer
 
 
 class Range(XmlElement):
@@ -11,8 +12,8 @@ class Range(XmlElement):
     child is the repeated element
     """
 
-    def __init__(self, tag, attrib, minsize, maxsize, child):
-        XmlElement.__init__(self, tag, attrib)
+    def __init__(self, tag, minsize, maxsize, child):
+        XmlElement.__init__(self, tag)
         self.minsize = minsize
         self.maxsize = maxsize
         self.child = child
@@ -26,14 +27,15 @@ class Range(XmlElement):
 
     def _build(self, obj):
         self.check_size(len(obj))
-        element = ElementTree.Element(self.tag, self.attrib)
+        element = ElementTree.Element(self.tag, obj.xml_attrib)
         for child_index in xrange(len(obj)):
             element.append(self.child._build(obj[child_index]))
         return element
 
     def _parse(self, element):
         self.check_size(len(list(element)))
-        return map(self.child._parse, list(element))
+        values = map(self.child._parse, list(element))
+        return ListContainer(*values, xml_attrib=element.attrib)
 
 
 class Array(Range):
