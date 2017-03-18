@@ -12,18 +12,18 @@ class Struct(XmlElement):
     in the __init__, without validating the order against the xml element 
     """
 
-    def __init__(self, tag, attrib, *children):
-        XmlElement.__init__(self, tag, attrib)
+    def __init__(self, tag, *children):
+        XmlElement.__init__(self, tag)
         self.children = children
 
     def _build(self, obj):
-        element = ElementTree.Element(self.tag, self.attrib)
+        element = ElementTree.Element(self.tag, obj.xml_attrib)
         for child in self.children:
             element.append(child._build(obj[child.tag]))
         return element
 
     def _parse(self, element):
-        obj = Container()
+        obj = Container(xml_attrib=element.attrib)
         for child in self.children:
             obj.update({child.tag: child._parse(element.find(child.tag))})
         return obj
