@@ -36,12 +36,10 @@ class FormatElement(XmlElement):
         raise NotImplementedError()
 
     def _build(self, obj):
-        if isinstance(obj, ValueContainer):
-            element = ElementTree.Element(self.tag, obj.xml_attrib)
-            element.text = self.build_func(obj.value)
-        else:
-            element = ElementTree.Element(self.tag, {})
-            element.text = self.build_func(obj)
+        if not isinstance(obj, ValueContainer):
+            obj = ValueContainer(obj)
+        element = ElementTree.Element(self.tag, obj.xml_attrib)
+        element.text = self.build_func(obj.value)
         return element
 
     def _parse(self, element):
