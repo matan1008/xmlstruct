@@ -67,3 +67,9 @@ class ListContainer(list):
     def __init__(self, *args, **kwds):
         self.xml_attrib = kwds.pop("xml_attrib", {})
         list.__init__(args)
+
+
+class ValueContainer(object):
+    def __init__(self, value, **kwds):
+        self.xml_attrib = kwds.pop("xml_attrib", {})
+        self.value = value
