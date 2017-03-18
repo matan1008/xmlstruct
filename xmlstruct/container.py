@@ -75,4 +75,7 @@ class ValueContainer(object):
         self.value = value
 
     def __eq__(self, other):
-        return self.value == other.value and self.xml_attrib == other.xml_attrib
+        if type(other) == ValueContainer:
+            return self.value == other.value and self.xml_attrib == other.xml_attrib
+        else:
+            return self.value == other
