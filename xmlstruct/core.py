@@ -41,14 +41,16 @@ class OrderedStruct(XmlElement):
     in the __init__, with validating the order against the xml element
     """
 
-    def __init__(self, tag, *children):
-        XmlElement.__init__(self, tag)
+    def __init__(self, tag, *children, **kwargs):
+        XmlElement.__init__(self, tag, kwargs.get("attrib"))
         self.children = children
 
     def _build(self, obj):
         if not isinstance(obj, OrderedPairContainer):
             obj = OrderedPairContainer(obj)
-        element = ElementTree.Element(self.tag, obj.xml_attrib)
+        attributes = self.attrib.copy()
+        attributes.update(obj.xml_attrib)
+        element = ElementTree.Element(self.tag, attributes)
         for index, child in enumerate(self.children):
             if child.tag != obj[index][0]:
                 raise TagMismatchError(child.tag, obj[index][0])
