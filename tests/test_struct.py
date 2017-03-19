@@ -77,4 +77,5 @@ def test_overriding_attributes():
             )
     )
     obj = Container(testb={"testint": ValueContainer(3, xml_attrib={"attr": "attrb"}), "string": "night"})
-    assert xml_struct.build(obj) == '<testa><testb><testint attr="attrb">3</testint><string attr="attrv">night</string></testb></testa>'
+    assert xml_struct.build(
+        obj) == '<testa><testb><testint attr="attrb">3</testint><string attr="attrv">night</string></testb></testa>'
