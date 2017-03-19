@@ -12,8 +12,8 @@ class Range(XmlElement):
     child is the repeated element
     """
 
-    def __init__(self, tag, minsize, maxsize, child):
-        XmlElement.__init__(self, tag)
+    def __init__(self, tag, minsize, maxsize, child, **kwargs):
+        XmlElement.__init__(self, tag, kwargs.get("attrib"))
         self.minsize = minsize
         self.maxsize = maxsize
         self.child = child
@@ -29,6 +29,8 @@ class Range(XmlElement):
         if not isinstance(obj, ListContainer):
             obj = ListContainer(*obj)
         self.check_size(len(obj))
+        attributes = self.attrib.copy()
+        attributes.update(obj.xml_attrib)
         element = ElementTree.Element(self.tag, obj.xml_attrib)
         for child_index in xrange(len(obj)):
             element.append(self.child._build(obj[child_index]))
