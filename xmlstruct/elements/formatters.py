@@ -12,8 +12,8 @@ class FormatElement(XmlElement):
     """
     __metaclass__ = ABCMeta
 
-    def __init__(self, tag):
-        XmlElement.__init__(self, tag)
+    def __init__(self, tag, attrib=None):
+        XmlElement.__init__(self, tag, attrib)
 
     @abstractmethod
     def parse_func(self, text):
@@ -38,7 +38,9 @@ class FormatElement(XmlElement):
     def _build(self, obj):
         if not isinstance(obj, ValueContainer):
             obj = ValueContainer(obj)
-        element = ElementTree.Element(self.tag, obj.xml_attrib)
+        attributes = self.attrib.copy()
+        attributes.update(obj.xml_attrib)
+        element = ElementTree.Element(self.tag, attributes)
         element.text = self.build_func(obj.value)
         return element
 
