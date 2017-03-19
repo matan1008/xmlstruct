@@ -1,4 +1,4 @@
-from xmlstruct import Struct, Container, Int, String, OrderedStruct, OrderedPairContainer
+from xmlstruct import Struct, Container, Int, String, OrderedStruct, OrderedPairContainer, ValueContainer
 
 
 def test_struct_build():
@@ -65,3 +65,16 @@ def test_same_tags_subelements_parse():
     )
     obj = OrderedPairContainer(("string", "3"), ("string", "4"))
     assert xml_struct.parse('<test><string>3</string><string>4</string></test>') == obj
+
+
+def test_overriding_attributes():
+    xml_struct = Struct(
+            "testa",
+            Struct(
+                    "testb",
+                    Int("testint", {"attr": "attra"}),
+                    String("string", {"attr": "attrv"})
+            )
+    )
+    obj = Container(testb={"testint": ValueContainer(3, xml_attrib={"attr": "attrb"}), "string": "night"})
+    assert xml_struct.build(obj) == '<testa><testb><testint attr="attrb">3</testint><string attr="attrv">night</string></testb></testa>'
