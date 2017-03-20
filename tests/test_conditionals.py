@@ -1,5 +1,6 @@
 from xmlstruct import Int, Optional, ValueContainer, Struct, Container
 
+
 def test_optional_int_build():
     obj = ValueContainer(6, xml_attrib={"attr": "check"})
     assert Optional(Int("test")).build(obj) == '<test attr="check">6</test>'
@@ -36,5 +37,5 @@ def test_optional_recursive_parse_none():
             Int("testint"),
             Optional(Int("optestint"))
     )
-    obj = Container({"testint": 3, "optestint":None}, xml_attrib={"attr": "attrv"})
+    obj = Container({"testint": 3, "optestint": None}, xml_attrib={"attr": "attrv"})
     assert xml_struct.parse('<test attr="attrv"><testint>3</testint></test>') == obj
