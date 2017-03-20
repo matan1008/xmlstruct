@@ -23,7 +23,7 @@ class Struct(XmlElement):
         attributes.update(obj.xml_attrib)
         element = ElementTree.Element(self.tag, attributes)
         for child in self.children:
-            element.append(child._build(obj[child.tag]))
+            element.append(child._build(obj.get(child.tag)))
         return element
 
     def _parse(self, element):
