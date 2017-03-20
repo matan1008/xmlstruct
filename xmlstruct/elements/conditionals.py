@@ -22,6 +22,6 @@ class Optional(XmlElement):
 
     def _parse(self, element):
         if element is None:
-            return Container()
+            return None
         else:
             return self.child._parse(element)
