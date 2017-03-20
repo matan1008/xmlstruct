@@ -2,6 +2,7 @@ from xmlstruct.core import Struct, OrderedStruct
 from xmlstruct.elements.formatters import Int, Float, Hex, String, FormatElement
 from xmlstruct.container import Container, OrderedPairContainer, ListContainer, ValueContainer
 from xmlstruct.elements.repeaters import Range, GreedyRange, Array
+from xmlstruct.elements.conditionals import Optional
 
 __all__ = [
     "Struct", "Int", "Float", "Hex", "String", "FormatElement", "Container",
