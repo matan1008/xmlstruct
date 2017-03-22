@@ -24,3 +24,19 @@ class Optional(XmlElement):
             return None
         else:
             return self.child._parse(element)
+
+
+class Switch(XmlElement):
+    """
+    A conditional branch element. Switch will choose the right element according
+    to a the value of keyfunc (which can be function or value).
+    If default is specified, lack of match between keyfunc and cases will
+    cause choosing default. If default is not specified, the result will be raising
+    an Exception
+    """
+
+    def __init__(self, tag, keyfunc, cases, default=None, **kwargs):
+        XmlElement.__init__(self, tag, kwargs.get("attrib"))
+        self.keyfunc = keyfunc
+        self.cases = cases
+        self.default = default
