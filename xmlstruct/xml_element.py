@@ -59,5 +59,6 @@ class XmlElement(object):
         Used in order to get tag.
         Some elements may change their tag according to the building obj or
         parsing element so this function is needed
+        :param parent: parent obj (for building) or Element (for parsing)
         """
         return self.tag

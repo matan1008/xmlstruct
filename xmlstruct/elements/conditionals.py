@@ -45,6 +45,10 @@ class Switch(XmlElement):
         self.default = default
 
     def get_key(self, obj):
+        """
+        For each use of keyfunc
+        :param obj: param for keyfunc
+        """
         return self.keyfunc(obj) if callable(self.keyfunc) else self.keyfunc
 
     def all_cases(self):
