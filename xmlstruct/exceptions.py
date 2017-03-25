@@ -26,3 +26,23 @@ class TagMismatchError(XmlstructError):
 
     def __str__(self):
         return ": tag %s doesn't match expected %s" % (self.real_tag, self.struct_tag)
+
+
+class SwitchNoMatchError(XmlstructError):
+    """ Error for when a switch can't find a match in cases"""
+
+    def __init__(self):
+        XmlstructError.__init__(self)
+
+    def __str__(self):
+        return ": match not found in cases"
+
+
+class SwitchSeveralMatchError(XmlstructError):
+    """ Error for when a switch finds too many matches"""
+
+    def __init__(self):
+        XmlstructError.__init__(self)
+
+    def __str__(self):
+        return ": several matches found in switch"
