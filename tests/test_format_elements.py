@@ -1,3 +1,4 @@
+# coding=utf-8
 from xmlstruct import Int, Float, String, Hex, ValueContainer
 
 

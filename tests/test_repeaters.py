@@ -1,3 +1,4 @@
+# coding=utf-8
 from xmlstruct import Int, Range, GreedyRange, Array
 from xmlstruct.exceptions import RangeError
 import pytest

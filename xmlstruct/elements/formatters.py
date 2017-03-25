@@ -1,3 +1,4 @@
+# coding=utf-8
 from xml.etree import ElementTree
 from abc import ABCMeta, abstractmethod
 from xmlstruct.xml_element import XmlElement

@@ -1,3 +1,4 @@
+# coding=utf-8
 import sys
 from xml.etree import ElementTree
 from xmlstruct.xml_element import XmlElement

@@ -1,3 +1,4 @@
+# coding=utf-8
 from xmlstruct.core import Struct, OrderedStruct
 from xmlstruct.elements.formatters import Int, Float, Hex, String, FormatElement
 from xmlstruct.container import Container, OrderedPairContainer, ListContainer, ValueContainer

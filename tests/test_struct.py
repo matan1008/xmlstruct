@@ -1,3 +1,4 @@
+# coding=utf-8
 from xmlstruct import Struct, Container, Int, String, OrderedStruct, OrderedPairContainer, ValueContainer
 
 
