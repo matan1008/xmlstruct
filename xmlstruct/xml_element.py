@@ -52,3 +52,11 @@ class XmlElement(object):
         The function receives a xml.etree.ElementTree.Element object as element
         """
         raise NotImplementedError()
+
+    def get_tag(self, parent):
+        """
+        Used in order to get tag.
+        Some elements may change their tag according to the building obj or
+        parsing element so this function is needed
+        """
+        return self.tag
