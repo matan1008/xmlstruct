@@ -3,6 +3,7 @@ from xml.etree import ElementTree
 from abc import ABCMeta, abstractmethod
 from xmlstruct.xml_element import XmlElement
 from xmlstruct.container import ValueContainer
+from xmlstruct.exceptions import FormatError
 
 
 class FormatElement(XmlElement):
@@ -42,11 +43,17 @@ class FormatElement(XmlElement):
         attributes = self.attrib.copy()
         attributes.update(obj.xml_attrib)
         element = ElementTree.Element(self.tag, attributes)
-        element.text = self.build_func(obj.value)
+        try:
+            element.text = self.build_func(obj.value)
+        except ValueError:
+            raise FormatError(obj.value, type(self))
         return element
 
     def _parse(self, element):
-        value = self.parse_func(element.text)
+        try:
+            value = self.parse_func(element.text)
+        except ValueError:
+            raise FormatError(element.text, type(self))
         return ValueContainer(value, xml_attrib=element.attrib)
 
 

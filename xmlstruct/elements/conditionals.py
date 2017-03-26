@@ -2,7 +2,7 @@
 from xml.etree import ElementTree
 from xmlstruct.xml_element import XmlElement
 from xmlstruct.container import ValueContainer
-from xmlstruct.exceptions import SwitchNoMatchError, SwitchSeveralMatchError
+from xmlstruct.exceptions import SwitchNoMatchError, SwitchSeveralMatchError, XmlstructError
 
 
 class Optional(XmlElement):
@@ -91,7 +91,7 @@ class Switch(XmlElement):
                 if self.cases.get(self.get_key(obj), self.default) == case:
                     if ElementTree.tostring(element) == case.build(obj):
                         possible_objs.append(obj)
-            except Exception:
+            except XmlstructError:
                 continue
         if len(possible_objs) == 0:
             raise SwitchNoMatchError()

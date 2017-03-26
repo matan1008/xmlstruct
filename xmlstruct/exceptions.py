@@ -3,6 +3,17 @@ class XmlstructError(Exception):
     """General xmlstruct error"""
     pass
 
+class FormatError(XmlstructError):
+    """ Error for formatting problems """
+
+    def __init__(self, data, format_type):
+        XmlstructError.__init__(self)
+        self.data = data
+        self.format_type = format_type
+
+    def __str__(self):
+        return ": %s is can not be formatted as %s" % (str(self.data), str(self.format_type))
+
 
 class RangeError(XmlstructError):
     """Error for any range issue"""
