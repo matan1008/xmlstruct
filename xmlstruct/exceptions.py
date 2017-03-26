@@ -3,6 +3,7 @@ class XmlstructError(Exception):
     """General xmlstruct error"""
     pass
 
+
 class FormatError(XmlstructError):
     """ Error for formatting problems """
 
