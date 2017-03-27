@@ -99,3 +99,22 @@ class Switch(XmlElement):
             return possible_objs[0]
         else:
             raise SwitchSeveralMatchError()
+
+
+class IfThenElse(Switch):
+    """
+    A conditional "if then else" element.
+    then_element will be called if predicate returns True,
+    Else else_element will be called
+    """
+
+    def __init__(self, predicate, then_element, else_element, **kwargs):
+        Switch.__init__(
+                self,
+                lambda obj: bool(predicate(obj)),
+                {
+                    True: then_element,
+                    False: else_element
+                },
+                **kwargs
+        )
