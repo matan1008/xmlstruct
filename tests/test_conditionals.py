@@ -1,5 +1,5 @@
 # coding=utf-8
-from xmlstruct import Int, Optional, ValueContainer, Struct, Container, Switch, Float, String
+from xmlstruct import Int, Optional, ValueContainer, Struct, Container, Switch, Float, String, IfThenElse
 from xmlstruct.exceptions import SwitchNoMatchError, SwitchSeveralMatchError
 import pytest
 
@@ -138,6 +138,46 @@ def test_structured_switch_parse():
             "test",
             Switch(type, {int: Int("int"), float: Float("float")}),
             String("description")
+    )
+    obj = Container(int=3, description="What")
+    assert xml_struct.parse("<test><int>3</int><description>What</description></test>") == obj
+
+
+def test_if_then_else_build():
+    def predicate(obj):
+        return type(obj) == int
+    xml_elif = IfThenElse(predicate, Int("int"), String("String"))
+    obj = 7
+    assert xml_elif.build(obj) == "<int>7</int>"
+
+
+def test_if_then_else_parse():
+    def predicate(obj):
+        return type(obj) == int
+    xml_elif = IfThenElse(predicate, Int("int"), String("String"))
+    obj = 7
+    assert xml_elif.parse("<int>7</int>") == obj
+
+
+def test_structured_if_then_else_build():
+    def predicate(obj):
+        return type(obj) == int
+    xml_struct = Struct(
+        "test",
+        IfThenElse(predicate, Int("int"), String("String")),
+        String("description")
+    )
+    obj = Container(int=3, description="What")
+    assert xml_struct.build(obj) == "<test><int>3</int><description>What</description></test>"
+
+
+def test_structured_if_then_else_parse():
+    def predicate(obj):
+        return type(obj) == int
+    xml_struct = Struct(
+        "test",
+        IfThenElse(predicate, Int("int"), String("String")),
+        String("description")
     )
     obj = Container(int=3, description="What")
     assert xml_struct.parse("<test><int>3</int><description>What</description></test>") == obj
