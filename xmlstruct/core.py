@@ -67,3 +67,17 @@ class OrderedStruct(XmlElement):
                 raise TagMismatchError(child_tag, subelement.tag)
             parsed_elements.append((child_tag, child._parse(subelement)))
         return OrderedPairContainer(*parsed_elements, xml_attrib=element.attrib)
+
+
+class Pass(XmlElement):
+    """An element that will not be built or parsed"""
+
+    def __init__(self):
+        XmlElement.__init__(self, None)
+
+    def _build(self, obj):
+        element = ElementTree.Element(None)
+        return element
+
+    def _parse(self, element):
+        return None
