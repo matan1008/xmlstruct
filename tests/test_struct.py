@@ -1,5 +1,5 @@
 # coding=utf-8
-from xmlstruct import Struct, Container, Int, String, OrderedStruct, OrderedPairContainer, ValueContainer
+from xmlstruct import Struct, Container, Int, String, OrderedStruct, OrderedPairContainer, ValueContainer, Pass
 
 
 def test_struct_build():
@@ -80,3 +80,11 @@ def test_overriding_attributes():
     obj = Container(testb={"testint": ValueContainer(3, xml_attrib={"attr": "attrb"}), "string": "night"})
     assert xml_struct.build(
         obj) == '<testa><testb><testint attr="attrb">3</testint><string attr="attrv">night</string></testb></testa>'
+
+
+def test_pass_buillding():
+    xml_pass = Pass()
+    obj = 6
+    assert xml_pass.build(obj) == ""
+
+
